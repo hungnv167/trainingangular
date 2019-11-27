@@ -1,0 +1,88 @@
+<div class="container-fluid">
+    <div class='panel panel-primary'>
+        <div class='panel-heading'>
+            {{title}}
+        </div>
+        <div class='panel-body'>
+            <div class='table-responsive'>
+                <table class='table table-striped'>
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Title</th>
+                            <th>Director</th>
+                            <th>Cast</th>
+                            <th>Release Date</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr
+                            *ngFor="let movie of movies | slice: (page-1) * pageSize : (page-1) * pageSize + pageSize; index as i">
+                            <td>{{ i + 1 }}</td>
+                            <td>{{movie.title}}</td>
+                            <td>{{movie.director}}</td>
+                            <td>{{movie.cast}}</td>
+                            <td>{{movie.releaseDate}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <ngb-pagination [(page)]="page" [pageSize]="pageSize" [collectionSize]="movies.length"
+                    [boundaryLinks]="true"></ngb-pagination>
+
+                <select class="custom-select" style="width: auto" [(ngModel)]="pageSize">
+                    <option [ngValue]="2">2 items per page</option>
+                    <option [ngValue]="4">4 items per page</option>
+                    <option [ngValue]="6">6 items per page</option>
+                </select>
+
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6 mt-4">
+            <h4>Add a new Film</h4>
+            <form [formGroup]="movieForm" (ngSubmit)="addNewMovie()">
+                <div class="form-group">
+                    <label for="title">Title</label>
+                    <input formControlName="title" type="text" class="form-control" id="title" placeholder="Enter title">
+                </div>
+                <div class="form-group">
+                    <label for="director">Director</label>
+                    <input formControlName="director" type="text" class="form-control" id="director" placeholder="Enter director">
+                </div>
+                <div class="form-group">
+                    <label for="cast">Cast</label>
+                    <input formControlName="cast" type="text" class="form-control" id="cast" placeholder="Enter cast">
+                </div>
+                <div class="form-group">
+                    <label for="date">Date</label>
+                    <div class="input-group">
+                        <input formControlName="date" class="form-control" placeholder="yyyy-mm-dd" name="dp" ngbDatepicker
+                            #d="ngbDatepicker" id="date">
+                        <div class="input-group-append">
+                            <button class="btn btn-outline-secondary calendar" (click)="d.toggle()"
+                                type="button"></button>
+                        </div>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary">Add</button>
+
+            </form>
+        </div>
+        <div class="col-md-6">
+            <button class="btn btn-primary" (click)="showStandard()" ngbTooltip="Will disappear in 5s">Standard
+                toast</button>&nbsp;
+            <button class="btn btn-success" (click)="showSuccess()" ngbTooltip="Will disappear in 10s">Success
+                toast</button>&nbsp;
+            <button class="btn btn-danger" (click)="showError()" ngbTooltip="Will disappear in 10s">Error
+                toast</button>&nbsp;
+            <ng-template #customTpl>
+                <i>This is</i> a <u>custome</u> template <b>toast message</b>
+            </ng-template>
+
+            <button class="btn btn-info" (click)="showCustomToast(customTpl)" ngbTooltip="Will disappear in 15s">Custom
+                toast</button>&nbsp;
+
+        </div>
+    </div>
+</div>
