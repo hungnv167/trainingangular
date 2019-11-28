@@ -1,6 +1,10 @@
 import { Injectable } from '@angular/core';
 import { Movie } from '../model/movie';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
+const httpOptions = {
+  headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+};
 @Injectable({
   providedIn: 'root'
 })
@@ -16,8 +20,11 @@ export class MovieService {
     { title: 'X-Men: Apocalypse', director: 'Bryan Singer', cast: 'Jennifer Lawrence, Olivia Munn, Oscar Isaac', releaseDate: 'May 27, 2016' },
     { title: 'Bụi đời chợ lớn', director: 'Charlie Nguyễn', cast: 'Thái Hòa , Johnny Trí Nguyễn', releaseDate: 'May 27, 2013' },
   ];
-  constructor() { }
+  constructor(private http:HttpClient) { }
 
+  getApi() {
+    return this.http.get('https://5dddd0f5fca1110014f15d97.mockapi.io/training/end/nguyenhung');
+  }
   getMovies() {
     return this.movies;
   }

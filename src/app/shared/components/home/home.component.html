@@ -3,6 +3,9 @@
         <div class='panel-heading'>
             {{title}}
         </div>
+        <ul>
+            <li *ngFor="let item of api">{{item.name}}</li>
+        </ul>
         <div class='panel-body'>
             <div class='table-responsive'>
                 <table class='table table-striped'>

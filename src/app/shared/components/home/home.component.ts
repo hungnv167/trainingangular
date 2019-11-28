@@ -14,6 +14,7 @@ export class HomeComponent implements OnInit {
   // model: any;
   page = 1;
   pageSize = 2;
+  api;
   title = 'Top 10 Movies';
   movies: Movie[];
 
@@ -30,6 +31,7 @@ export class HomeComponent implements OnInit {
       cast: ['', Validators.required],
       date: ['', Validators.required]
     });
+    this.movieService.getApi().subscribe(e => this.api = e)
   }
 
   addNewMovie() {
